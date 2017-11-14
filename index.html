@@ -37,7 +37,6 @@
 			        y: function(d) { return h - (d); },
 			        width: w / dataset.length - barPadding,
 			        height: function(d) { return d; },
-			        fill: function(d) { return "rgb(0, 0, " + (d * 10) + ")"; }
 		   		});
 			svg.selectAll("text")
 			   .data(dataset)
