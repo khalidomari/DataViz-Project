@@ -16,7 +16,7 @@ const svg = d3.select("#chart-container").append("svg")
   .attr("height", (height + margin.top + margin.bottom));
 
 
-d3.csv('./data/filtered_gtd_no_summary.csv', createTimeSeries);
+d3.csv('./data/filtered_gtd.csv', createTimeSeries);
 
 function createTimeSeries(data) {
 
