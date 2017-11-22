@@ -1,0 +1,8 @@
+#circle circle {
+    fill: none;
+    pointer-events: all;
+}
+
+#circle:hover path.fade {
+    display: none;
+}
