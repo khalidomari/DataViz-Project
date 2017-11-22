@@ -29,8 +29,8 @@
 <script src="//d3js.org/topojson.v1.min.js"></script>
 <script>
 
-var width = 1280,
-    height = 800,
+var width = 1270,
+    height = 690,
     active = d3.select(null);
 
 var projection = d3.geo.mercator()
@@ -40,7 +40,7 @@ var projection = d3.geo.mercator()
 var zoom = d3.behavior.zoom()
     .translate([387, 322])
     .scale(.25)
-    .scaleExtent([.25, 8])
+    .scaleExtent([.25, 15])
     .on("zoom", zoomed);
 
 var path = d3.geo.path()
@@ -50,11 +50,18 @@ var first = true;
 
 var marks = [];
 
-d3.csv("latLong.csv", function(data) {
+var tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("font-size","xx-large")
+
+
+d3.csv("latLongMax.csv", function(data) {
   data.forEach(function(d) {
     marks.push({long: d.longitude, lat: d.latitude, count: d.count})
   });
-  console.log(data[0]);
 });
 
 var svg = d3.select("body").append("svg")
@@ -85,7 +92,7 @@ d3.json("world-countries.json", function(error, us) {
       .on("click", clicked);
 
   g.append("path")
-      .datum(topojson.mesh(us, us.objects.countries1, function(a, b) { return a !== b; }))
+      .datum(topojson.mesh(us, us.objects.countries1, function(a, b) {return a !== b; }))
       .attr("class", "mesh")
       .attr("d", path);
 });
@@ -100,7 +107,7 @@ function clicked(d) {
       dy = bounds[1][1] - bounds[0][1],
       x = (bounds[0][0] + bounds[1][0]) / 2,
       y = (bounds[0][1] + bounds[1][1]) / 2,
-      scale = Math.max(.25, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+      scale = Math.max(.25, Math.min(15, 0.9 / Math.max(dx / width, dy / height))),
       translate = [width / 2 - scale * x, height / 2 - scale * y];
 
   if (first) {
@@ -112,6 +119,9 @@ function clicked(d) {
       .duration(750)
       .call(zoom.translate(translate).scale(scale).event);
 
+  var name = d.properties.name;
+  tooltip.text(name);
+  tooltip.style("visibility", "visible");
 }
 
 function reset() {
@@ -121,6 +131,8 @@ function reset() {
   svg.transition()
       .duration(750)
       .call(zoom.translate([387, 322]).scale(.25).event);
+
+  tooltip.style("visibility", "hidden");
 }
 
 function zoomed() {
@@ -141,15 +153,15 @@ function markers() {
     .data(marks)
     .enter()
     .append("circle")
-    .attr("r", 1)
+    .attr("r", function(d){return Math.log(d.count)/2;})
     .attr('cy',2)
     .attr('cx',2)
-    .style("fill", function(d) { return "red"; })
+    .style("fill", function(d) { return "none"; })
     .style("stroke", function(d) { return "red"; })
     .attr("transform", function(d) {
       pro = projection([d.long,d.lat])
-      pro[0] = pro[0]-5;
-      pro[1] = pro[1]-5;
+      pro[0] = pro[0];
+      pro[1] = pro[1];
       return "translate(" + pro + ")";})
     .on("mouseover", function(d){tooltip.text([d.count]);
       return tooltip.style("visibility", "visible");})
