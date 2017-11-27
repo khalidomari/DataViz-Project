@@ -1,0 +1,10 @@
+weaptype1_txt,Airports & Aircraft,Business,Educational Institution,Food or Water Supply,Government (Diplomatic),Government (General),Journalists & Media,Maritime,Military,NGO,Other,Police,Private Citizens & Property,Religious Figures/Institutions,Telecommunication,Terrorists/Non-State Militia,Tourists,Transportation,Unknown,Utilities,Violent Political Party
+Chemical,0,1,17,2,0,2,1,0,17,0,0,10,15,0,0,2,0,0,0,0,0
+Explosives/Bombs/Dynamite,155,3014,432,84,236,2390,114,43,4572,41,64,3453,4371,387,245,322,47,1071,812,2467,75
+Firearms,39,1115,205,18,110,2087,306,24,5784,107,18,4057,4179,234,53,322,27,278,47,73,96
+Incendiary,11,1005,153,8,22,184,16,1,85,3,6,124,394,56,109,7,5,442,7,17,7
+Melee,6,41,16,1,9,69,8,0,78,2,1,89,494,23,1,17,6,11,1,1,4
+Other,0,3,0,0,0,2,0,0,1,0,0,0,20,2,0,0,0,0,0,0,0
+Sabotage Equipment,0,5,1,0,0,2,2,0,0,0,0,1,0,0,1,0,0,14,0,8,1
+Unknown,13,516,94,11,45,579,133,10,1276,46,4,916,1575,66,22,149,14,84,31,87,33
+"Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)",0,1,2,0,0,2,0,0,3,0,0,4,3,3,0,0,0,0,0,0,0
