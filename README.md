@@ -5,6 +5,7 @@ Chiara Orvati,
 Khalid Omari,
 Skander Hajri,
 
+Find the Process Book [here] (https://www.overleaf.com/read/jntyybhvyjrb). (read only)
 
 # Global Terrorism Visualization
 
