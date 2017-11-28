@@ -22,7 +22,7 @@ function createChordDiagram(data) {
   let firstColumn = 'gname';
 
   let categories = Object.keys(data[0]);
-  categories = categories.slice(1,categories.length); // category names, i.e regions, etc
+  categories = categories.slice(1, categories.length); // category names, i.e regions, etc
 
   let fc = data.map(function(d) {
       return d[firstColumn];
@@ -51,9 +51,19 @@ function createChordDiagram(data) {
     }
   }
 
-  let chord = d3.chord().padAngle(0.1).sortSubgroups(d3.descending);
+
+  let paddingFunction = function(data) {
+    if (data.index==categories.length || data.index == 0){
+      return 0.1;
+    }else {
+      return 0.01;
+    }
+  }
+
+  let chord = d3.chord().padAngle(0.05).sortSubgroups(d3.descending);
 
   let chordgroups = chord(matrix).groups.map(function(d) {
+    console.log(d)
     d.angle = (d.startAngle + d.endAngle) / 2;
     return d;
   });
@@ -62,34 +72,34 @@ function createChordDiagram(data) {
 
   let ribbon = d3.ribbon().radius(innerRadius);
 
-  //let fill = d3.scaleLinear().domain([30, 38]).range(['#FFC300', '#581845']);
+  let fill = d3.schemeCategory20b;
 
-  let fill = d3.schemeCategory20;
-  // if(categories.length >10) {
-  //   fill = d3.schemeCategory20;
-  // }
-
-  console.log(fill)
+  // if there are more categories than 20, we extend the color scheme by repeating it from the start
+  if (categories.length > 20) {
+    let diff = categories.length - 20;
+    for (let i = 0; i < diff; i++) {
+      fill.push(fill[i]);
+    }
+  }
 
   let g = svg.append("g").attr('class', 'circle').datum(chord(matrix));
 
   let group = g.selectAll(".groups").data(function(chords) {
     return chords.groups;
-  }).enter().append('g').attr("class", "groups")
-  .on('mouseover', fade(0.05))
-  .on('mouseout', fade(1));
+  }).enter().append('g').attr("class", "groups").on('mouseover', fade(0.05)).on('mouseout', fade(1));
 
   group.append("path").style("fill", function(d, i) {
     return (d.index) >= gnames.length
       ? fill[d.index - gnames.length]
-      : "#ccc";
+      : "#000";
   }).attr("d", arc);
 
   g.selectAll('.ribbons').data(function(chords) {
     return chords;
   }).enter().append("path").attr("class", "ribbons").attr("d", ribbon).style("fill", function(d) {
     return fill[d.target.index - gnames.length];
-  });
+  }).style('opacity', 1);
+
 
   svg.selectAll(".text").data(chordgroups).enter().append("text").attr("class", "text").attr("text-anchor", function(d) {
     return d.angle > Math.PI
@@ -103,17 +113,22 @@ function createChordDiagram(data) {
       : "");
 
   }).text(function(d, i) {
-    //set the text content
-    if (fc[i] == 'Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)') {
-      return 'Vehicle';
-    } else {
+
+    // take parenthesis away that is present for the group names (abbreviations)
+    let parenthesis = fc[i].indexOf('(');
+    if (parenthesis == -1 || i >= gnames.length) {
       return fc[i];
+    } else {
+      return fc[i].slice(0, parenthesis);
     }
-  })
-  .style({
-    'font-family':'Verdana',
-    'font-size': '10px'
+
+  }).attr("font-family", "Courier New, bold").attr("font-size", "11px").attr("fill", function(d, i) {
+    return (d.index) >= gnames.length
+      ? fill[d.index - gnames.length]
+      : "#000";
   });
+
+  svg.selectAll('.text').on('mouseover', fade(0.05)).on('mouseout', fade(1));
 
   function fade(opacity) {
     return function(g, i) {
@@ -122,5 +137,6 @@ function createChordDiagram(data) {
       }).transition().style("opacity", opacity);
     };
   }
+
 
 }
