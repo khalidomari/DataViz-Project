@@ -3270,7 +3270,7 @@
 /* Header */
 
 	body.subpage {
-		padding-top: 3.125em;
+		padding-top: 0em;
 	}
 
 	@-moz-keyframes reveal-header {
@@ -4181,10 +4181,11 @@
 /* Footer */
 
 	#footer {
-		background-color: #F64747;
+		background-color: #000000;
 		color: #fdd1d1;
-		padding: 6em 0 4em 0;
-		background: #F64747;
+		padding: 15px 10px 5px 10px;
+		background: #000000;
+
 	}
 
 		#footer input, #footer select, #footer textarea {
@@ -4401,7 +4402,7 @@
 		}
 
 		#footer .copyright {
-			color: rgba(255, 255, 255, 0.5);
+			color: rgba(255, 255, 255, 0.7);
 			font-size: 0.8em;
 			margin: 0 0 2em 0;
 			padding: 0;
