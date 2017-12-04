@@ -1,6 +1,6 @@
 let margin = {
-  top: 50,
-  left: 50,
+  top: 30,
+  left: 30,
   bottom: 10,
   right: 10
 }
@@ -10,8 +10,9 @@ let height = 1100 - margin.top - margin.bottom;
 let innerRadius = Math.min(width, height) * .25;
 let outerRadius = innerRadius * 1.1;
 
-let svg = d3.select('body').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).attr("transform", "translate(" + margin.left + "," + margin.top + ")").append("g").attr("class", "chordDiagram").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-let button = d3.select('body').append('div').attr('width', 50).attr('height', height + margin.top + margin.bottom).attr("transform", "translate(" + margin.left+width + margin.left + margin.right + "," + margin.top + ")");
+let svg = d3.select('body #chartContainer').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).attr("transform", "translate(" + margin.left + "," + margin.top + ")").append("g").attr("class", "chordDiagram").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
 //************************************************************
 // CHANGE THE CSV FILE AND THE CHART IS COMPUTED AUTOMATICALLY
 //************************************************************
@@ -62,7 +63,6 @@ function createChordDiagram(data) {
   let chord = d3.chord().padAngle(0.05).sortSubgroups(d3.descending);
 
   let chordgroups = chord(matrix).groups.map(function(d) {
-    console.log(d)
     d.angle = (d.startAngle + d.endAngle) / 2;
     return d;
   });
@@ -82,16 +82,15 @@ function createChordDiagram(data) {
   }
 
   let g = svg.append("g").attr('class', 'circle').datum(chord(matrix));
-  let gg = button.append('g').attr('class', 'button');
 
   let group = g.selectAll(".groups").data(function(chords) {
     return chords.groups;
-  }).enter().append('g').attr("class", "groups").on('mouseover', fade(0.05)).on('mouseout', fade(1));
+  }).enter().append('g').attr("class", "groups").on('mouseover', fade(0.1)).on('mouseout', fade(1));
 
   group.append("path").style("fill", function(d, i) {
     return (d.index) >= gnames.length
       ? fill[d.index - gnames.length]
-      : "#000";
+      : "#ccc";
   }).attr("d", arc);
 
   g.selectAll('.ribbons').data(function(chords) {
@@ -125,10 +124,10 @@ function createChordDiagram(data) {
   }).attr("font-family", "Courier New, bold").attr("font-size", "11px").attr("fill", function(d, i) {
     return (d.index) >= gnames.length
       ? fill[d.index - gnames.length]
-      : "#000";
+      : "#ccc";
   });
 
-  svg.selectAll('.text').on('mouseover', fade(0.05)).on('mouseout', fade(1));
+  svg.selectAll('.text').on('mouseover', fade(0.1)).on('mouseout', fade(1));
 
   function fade(opacity) {
     return function(g, i) {
@@ -137,6 +136,25 @@ function createChordDiagram(data) {
       }).transition().style("opacity", opacity);
     };
   }
+}
 
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
 
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+    let i;
+    for (i = 0; i < dropdowns.length; i++) {
+      let openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
 }

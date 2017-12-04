@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Data Visualization Project</title>
-      	<script type="text/javascript" src="d3/d3.js"></script>
-		<link rel="stylesheet" href="chord.css">
-	</head>
-	<body>
-		<h1>Data Visualization Project</h1>
-		<div id='buttonContainer'>
 
+<head>
+	<meta charset="utf-8">
+	<title>Data Visualization Project</title>
+	<script type="text/javascript" src="d3/d3.js"></script>
+	<link rel="stylesheet" href="chord.css">
+</head>
+
+<body>
+	<h1>Data Visualization Project</h1>
+	<div id='buttonContainer' height='100px'>
+			<p id='instructions'>
+				Select the vis below:
+			</p>
+		<div class="dropdown">
+			<button onclick="myFunction()" class="dropbtn">Dropdown</button>
+			<div id="myDropdown" class="dropdown-content">
+				<p >Target type</p>
+				<p >Attack type</p>
+				<p >Weapon type</p>
+			</div>
 		</div>
-    <script type="text/javascript" src='chord.js'></script>
-	</body>
+	</div>
+	<div id='chartContainer'>
+		<script type="text/javascript" src='chord.js'></script>
+	</div>
+</body>
+
 </html>
