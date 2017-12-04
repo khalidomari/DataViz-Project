@@ -11,7 +11,7 @@ let innerRadius = Math.min(width, height) * .25;
 let outerRadius = innerRadius * 1.1;
 
 let svg = d3.select('body').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).attr("transform", "translate(" + margin.left + "," + margin.top + ")").append("g").attr("class", "chordDiagram").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
+let button = d3.select('body').append('div').attr('width', 50).attr('height', height + margin.top + margin.bottom).attr("transform", "translate(" + margin.left+width + margin.left + margin.right + "," + margin.top + ")");
 //************************************************************
 // CHANGE THE CSV FILE AND THE CHART IS COMPUTED AUTOMATICALLY
 //************************************************************
@@ -31,7 +31,7 @@ function createChordDiagram(data) {
     matrix_size = (Object.keys(data[0]).length - 1) + fc.length,
     matrix = [];
 
-  //Create an empty square matrix of zero placeholders, the size of the ata
+  //Create an empty square matrix of zero placeholders, the size of the data
   for (let i = 0; i < matrix_size; i++) {
     matrix.push(new Array(matrix_size + 1).join('0').split('').map(parseFloat));
   }
@@ -50,7 +50,6 @@ function createChordDiagram(data) {
       }
     }
   }
-
 
   let paddingFunction = function(data) {
     if (data.index==categories.length || data.index == 0){
@@ -83,6 +82,7 @@ function createChordDiagram(data) {
   }
 
   let g = svg.append("g").attr('class', 'circle').datum(chord(matrix));
+  let gg = button.append('g').attr('class', 'button');
 
   let group = g.selectAll(".groups").data(function(chords) {
     return chords.groups;
