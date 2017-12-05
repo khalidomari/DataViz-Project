@@ -3,23 +3,23 @@
 <style>
 
 .background {
-  fill: none;
+  fill: black;
   pointer-events: all;
 }
 
 .feature {
   fill: #ccc;
   cursor: pointer;
-  opacity: .5;
+  opacity: .7;
 }
 
 .feature.active {
-  fill: orange;
+  fill: #ccc;
 }
 
 .mesh {
   fill: none;
-  stroke: #fff;
+  stroke: black;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -30,8 +30,8 @@
 <script src="//d3js.org/topojson.v1.min.js"></script>
 <script>
 
-var width = 1270,
-    height = 690,
+var width = window.screen.availWidth,
+    height = window.screen.availHeight,
     active = d3.select(null);
 
 var projection = d3.geo.mercator()
@@ -49,6 +49,8 @@ var path = d3.geo.path()
 
 var first = true;
 
+var name = "";
+
 var marks = [];
 
 var tooltip = d3.select("body")
@@ -56,12 +58,12 @@ var tooltip = d3.select("body")
       .style("position", "absolute")
       .style("z-index", "10")
       .style("visibility", "hidden")
-      .style("font-size","xx-large")
+      .style("font-size","xx-large");
 
 
 d3.csv("latLongMax.csv", function(data) {
   data.forEach(function(d) {
-    marks.push({long: d.longitude, lat: d.latitude, gname: d.gname, count: d.count})
+    marks.push({long: d.longitude, lat: d.latitude, country_txt: d.country_txt, gname: d.gname, count: d.count})
   });
 });
 
@@ -92,9 +94,9 @@ d3.csv("countryCount.csv", function(data) {
 //Scale color
 var body = d3.select("body"),
     length = 22130, //Max Iraq
-    color = d3.scale.linear().domain([1,length])
+    color = d3.scale.linear().domain([1,length/3])
       .interpolate(d3.interpolateHcl)
-      .range([d3.rgb("#427eff"), d3.rgb('#F90000')]);
+      .range([d3.rgb("#427eff"),d3.rgb('#F90000')]);
 
 
 d3.json("world-countries.json", function(error, us) {
@@ -107,7 +109,7 @@ d3.json("world-countries.json", function(error, us) {
       .attr("class", "feature")
       .on("click", clicked)
       .style("fill",function(d){
-        return color(country[d.properties.name])});
+        return color(Math.min(country[d.properties.name],length/3))});
 
   g.append("path")
       .datum(topojson.mesh(us, us.objects.countries1, function(a, b) {return a !== b; }))
@@ -115,8 +117,19 @@ d3.json("world-countries.json", function(error, us) {
       .attr("d", path);
 });
 
+function resetColor(d) {
+  g.selectAll("path").filter(function(d) {
+    if (d.type == "Feature") {
+      return d.properties.name == name;
+    }
+    return false;}).style("fill",color(country[name]));
+}
+
 function clicked(d) {
-  if (active.node() === this) return reset();
+  g.selectAll("circle").remove();
+  tooltip.style("visibility", "hidden");
+  resetColor(d);
+  if (active.node() === this) return reset(d);
   active.classed("active", false);
   active = d3.select(this).classed("active", true);
 
@@ -128,33 +141,34 @@ function clicked(d) {
       scale = Math.max(.25, Math.min(100, 0.9 / Math.max(dx / width, dy / height))),
       translate = [width / 2 - scale * x, height / 2 - scale * y];
 
-  console.log(bounds);
-  console.log(dx);
-  console.log(dy);
-  console.log(x);
-  console.log(y);
+  name = d.properties.name;
+  g.selectAll("path").filter(function(d) {
+    if (d.type == "Feature") {
+      return d.properties.name == name;
+    }
+    return false;}).style("fill","#ccc");
 
-  if (first) {
-      markers();
-      first = false;
-  }
+  markers(name);
 
   svg.transition()
       .duration(750)
       .call(zoom.translate(translate).scale(scale).event);
 
-  var name = d.properties.name;
   tooltip.text(name+" : "+country[name]+" events");
   tooltip.style("visibility", "visible");
+  tooltip.style("color", "white");
 }
 
-function reset() {
+function reset(d) {
   active.classed("active", false);
   active = d3.select(null);
 
+  g.selectAll("circle").remove();
   svg.transition()
       .duration(750)
       .call(zoom.translate([387, 322]).scale(.25).event);
+
+  resetColor(d);
 
   tooltip.style("visibility", "hidden");
 }
@@ -180,22 +194,21 @@ function intToRGB(i){
     return "00000".substring(0, 6 - c.length) + c;
 }
 
-function markers() {
+function markers(name) {
 
   var tooltip = d3.select("body")
 	  .append("div")
 	  .style("position", "absolute")
 	  .style("z-index", "10")
 	  .style("visibility", "hidden")
-	  .text("Paris");
+    .style("color","white");
+
 
   g.selectAll(".mark")
-    .data(marks)
+    .data(marks.filter(function(d) { return d.country_txt == name; }))
     .enter()
     .append("circle")
-    .attr("r", function(d){return Math.log(d.count)/2;})
-    .attr('cy',2)
-    .attr('cx',2)
+    .attr("r", function(d){return Math.log(d.count+1)/2;})
     .style("fill", function(d) { return "none"; })
     .style("stroke", function(d) { return intToRGB(hashCode(d.gname)); })
     .attr("transform", function(d) {
