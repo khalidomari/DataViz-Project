@@ -10,6 +10,7 @@
 .feature {
   fill: #ccc;
   cursor: pointer;
+  opacity: .5;
 }
 
 .feature.active {
@@ -40,7 +41,7 @@ var projection = d3.geo.mercator()
 var zoom = d3.behavior.zoom()
     .translate([387, 322])
     .scale(.25)
-    .scaleExtent([.25, 15])
+    .scaleExtent([.25, 100])
     .on("zoom", zoomed);
 
 var path = d3.geo.path()
@@ -60,7 +61,7 @@ var tooltip = d3.select("body")
 
 d3.csv("latLongMax.csv", function(data) {
   data.forEach(function(d) {
-    marks.push({long: d.longitude, lat: d.latitude, count: d.count})
+    marks.push({long: d.longitude, lat: d.latitude, gname: d.gname, count: d.count})
   });
 });
 
@@ -81,6 +82,21 @@ svg
     .call(zoom) // delete this line to disable free zooming
     .call(zoom.event);
 
+var country = {};
+d3.csv("countryCount.csv", function(data) {
+    data.forEach(function(d) {
+      country[d.country_txt] = d.eventid;
+  });
+});
+
+//Scale color
+var body = d3.select("body"),
+    length = 22130, //Max Iraq
+    color = d3.scale.linear().domain([1,length])
+      .interpolate(d3.interpolateHcl)
+      .range([d3.rgb("#427eff"), d3.rgb('#F90000')]);
+
+
 d3.json("world-countries.json", function(error, us) {
   if (error) throw error;
 
@@ -89,7 +105,9 @@ d3.json("world-countries.json", function(error, us) {
     .enter().append("path")
       .attr("d", path)
       .attr("class", "feature")
-      .on("click", clicked);
+      .on("click", clicked)
+      .style("fill",function(d){
+        return color(country[d.properties.name])});
 
   g.append("path")
       .datum(topojson.mesh(us, us.objects.countries1, function(a, b) {return a !== b; }))
@@ -107,8 +125,14 @@ function clicked(d) {
       dy = bounds[1][1] - bounds[0][1],
       x = (bounds[0][0] + bounds[1][0]) / 2,
       y = (bounds[0][1] + bounds[1][1]) / 2,
-      scale = Math.max(.25, Math.min(15, 0.9 / Math.max(dx / width, dy / height))),
+      scale = Math.max(.25, Math.min(100, 0.9 / Math.max(dx / width, dy / height))),
       translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+  console.log(bounds);
+  console.log(dx);
+  console.log(dy);
+  console.log(x);
+  console.log(y);
 
   if (first) {
       markers();
@@ -120,7 +144,7 @@ function clicked(d) {
       .call(zoom.translate(translate).scale(scale).event);
 
   var name = d.properties.name;
-  tooltip.text(name);
+  tooltip.text(name+" : "+country[name]+" events");
   tooltip.style("visibility", "visible");
 }
 
@@ -140,6 +164,22 @@ function zoomed() {
   g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 }
 
+function hashCode(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+       hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+}
+
+function intToRGB(i){
+    var c = (i & 0x00FFFFFF)
+        .toString(16)
+        .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
+}
+
 function markers() {
 
   var tooltip = d3.select("body")
@@ -157,13 +197,13 @@ function markers() {
     .attr('cy',2)
     .attr('cx',2)
     .style("fill", function(d) { return "none"; })
-    .style("stroke", function(d) { return "red"; })
+    .style("stroke", function(d) { return intToRGB(hashCode(d.gname)); })
     .attr("transform", function(d) {
       pro = projection([d.long,d.lat])
       pro[0] = pro[0];
       pro[1] = pro[1];
       return "translate(" + pro + ")";})
-    .on("mouseover", function(d){tooltip.text([d.count]);
+    .on("mouseover", function(d){tooltip.text([d.count]+" by "+d.gname);
       return tooltip.style("visibility", "visible");})
 	  .on("mousemove", function(d){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
 	  .on("mouseout", function(d){return tooltip.style("visibility", "hidden");});
