@@ -9,18 +9,23 @@
 </head>
 
 <body>
-	<h1>Data Visualization Project</h1>
+	<h1 id='chordH1'>Chord Diagram</h1>
 	<div id='buttonContainer' height='100px'>
 			<p id='instructions'>
 				Select the vis below:
 			</p>
 		<div class="dropdown">
-			<button onclick="myFunction()" class="dropbtn">Dropdown</button>
+			<!-- <button onclick="myFunction()" class="dropbtn">Dropdown</button>
 			<div id="myDropdown" class="dropdown-content">
-				<p >Target type</p>
-				<p >Attack type</p>
-				<p >Weapon type</p>
-			</div>
+				<option >Target type</option>
+				<option >Attack type</option>
+				<option >Weapon type</option>
+			</div> -->
+			<select name='menu' id='drop' onChange='dropdown_callback()'>
+				<option >Target type</option>
+				<option >Attack type</option>
+				<option >Weapon type</option>
+			</select>
 		</div>
 	</div>
 	<div id='chartContainer'>

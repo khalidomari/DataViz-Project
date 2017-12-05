@@ -10,7 +10,13 @@ let height = 1100 - margin.top - margin.bottom;
 let innerRadius = Math.min(width, height) * .25;
 let outerRadius = innerRadius * 1.1;
 
-let svg = d3.select('body #chartContainer').append('svg').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).attr("transform", "translate(" + margin.left + "," + margin.top + ")").append("g").attr("class", "chordDiagram").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+let svg = d3.select('body #chartContainer').append('svg')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .append("g")
+            .attr("id", "chordDiagram")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 
 //************************************************************
@@ -121,7 +127,7 @@ function createChordDiagram(data) {
       return fc[i].slice(0, parenthesis);
     }
 
-  }).attr("font-family", "Courier New, bold").attr("font-size", "11px").attr("fill", function(d, i) {
+  }).attr("font-family", "Arial Black").attr("font-size", "11px").attr("fill", function(d, i) {
     return (d.index) >= gnames.length
       ? fill[d.index - gnames.length]
       : "#ccc";
@@ -138,23 +144,22 @@ function createChordDiagram(data) {
   }
 }
 
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
 
-    let dropdowns = document.getElementsByClassName("dropdown-content");
-    let i;
-    for (i = 0; i < dropdowns.length; i++) {
-      let openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
+function dropdown_callback() {
+  let skillsSelect = document.getElementById("drop");
+  let selectedText = skillsSelect.options[skillsSelect.selectedIndex].text;
+  console.log(selectedText)
+
+  let diagram = document.getElementById('chordDiagram');
+  diagram.innerHTML = '';
+  if (selectedText== 'Weapon type') {
+    d3.csv('./data/adjacency/adj_gname_weapon.csv', createChordDiagram);
+  } else if (selectedText== 'Attack type') {
+    d3.csv('./data/adjacency/adj_gname_attacktype.csv', createChordDiagram);
+  } else if (selectedText== 'Target type') {
+    d3.csv('./data/adjacency/adj_gname_targtype.csv', createChordDiagram);
   }
+
+
 }
