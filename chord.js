@@ -25,6 +25,7 @@ let svg = d3.select('body #chartContainer').append('svg')
 d3.csv('./data/adjacency/adj_gname_targtype.csv', createChordDiagram);
 
 function createChordDiagram(data) {
+  console.log(data)
 
   let firstColumn = 'gname';
 
@@ -87,23 +88,62 @@ function createChordDiagram(data) {
     }
   }
 
+  let newfill=[];
+  console.log(categories.length)
+  if (categories.length ==2) {
+    newfill.push(fill[12]);
+    newfill.push(fill[4]);
+    fill = newfill
+  }else if (categories.length <=10) {
+    newfill.push(fill[1]);
+    newfill.push(fill[5]);
+    newfill.push(fill[8]);
+    newfill.push(fill[11]);
+    newfill.push(fill[12]);
+    newfill.push(fill[13]);
+    newfill.push(fill[14]);
+    newfill.push(fill[16]);
+    newfill.push(fill[17]);
+    newfill.push(fill[18]);
+    fill = newfill;
+  }else if (categories.length <=12) {
+    newfill.push(fill[1]);
+    newfill.push(fill[2]);
+    newfill.push(fill[3]);
+    newfill.push(fill[4]);
+    newfill.push(fill[5]);
+    newfill.push(fill[8]);
+    newfill.push(fill[9]);
+    newfill.push(fill[11]);
+    newfill.push(fill[12]);
+    newfill.push(fill[13]);
+    newfill.push(fill[16]);
+    newfill.push(fill[18]);
+
+    fill = newfill;
+
+  }
+
   let g = svg.append("g").attr('class', 'circle').datum(chord(matrix));
 
   let group = g.selectAll(".groups").data(function(chords) {
     return chords.groups;
-  }).enter().append('g').attr("class", "groups").on('mouseover', fade(0.1)).on('mouseout', fade(1));
+  }).enter().append('g').attr("class", "groups").on('mouseover', fade(0.1)).on('mouseout', fade(0.9));
 
   group.append("path").style("fill", function(d, i) {
     return (d.index) >= gnames.length
       ? fill[d.index - gnames.length]
       : "#ccc";
-  }).attr("d", arc);
+  }).attr("d", arc)
+  .style("opacity", 0.9);
 
   g.selectAll('.ribbons').data(function(chords) {
     return chords;
-  }).enter().append("path").attr("class", "ribbons").attr("d", ribbon).style("fill", function(d) {
+  }).enter().append("path").attr("class", "ribbons").attr("d", ribbon)
+  .style("fill", function(d) {
     return fill[d.target.index - gnames.length];
-  }).style('opacity', 1);
+  })
+  .style("opacity", 0.9);
 
 
   svg.selectAll(".text").data(chordgroups).enter().append("text").attr("class", "text").attr("text-anchor", function(d) {
@@ -118,7 +158,14 @@ function createChordDiagram(data) {
       : "");
 
   }).text(function(d, i) {
-
+    if (fc[i].slice(0,7) == 'Vehicle') {
+      return fc[i].slice(0,7);
+    }
+    if (fc[i] == '0') {
+      return 'No';
+    }else if (fc[i] == '1'){
+      return 'Yes';
+    }
     // take parenthesis away that is present for the group names (abbreviations)
     let parenthesis = fc[i].indexOf('(');
     if (parenthesis == -1 || i >= gnames.length) {
@@ -127,13 +174,14 @@ function createChordDiagram(data) {
       return fc[i].slice(0, parenthesis);
     }
 
+
   }).attr("font-family", "Arial Black").attr("font-size", "11px").attr("fill", function(d, i) {
     return (d.index) >= gnames.length
       ? fill[d.index - gnames.length]
       : "#ccc";
   });
 
-  svg.selectAll('.text').on('mouseover', fade(0.1)).on('mouseout', fade(1));
+  svg.selectAll('.text').on('mouseover', fade(0.1)).on('mouseout', fade(0.9));
 
   function fade(opacity) {
     return function(g, i) {
@@ -142,8 +190,9 @@ function createChordDiagram(data) {
       }).transition().style("opacity", opacity);
     };
   }
-}
 
+
+}
 
 
 function dropdown_callback() {
@@ -159,6 +208,12 @@ function dropdown_callback() {
     d3.csv('./data/adjacency/adj_gname_attacktype.csv', createChordDiagram);
   } else if (selectedText== 'Target type') {
     d3.csv('./data/adjacency/adj_gname_targtype.csv', createChordDiagram);
+  } else if (selectedText== 'Attack region') {
+    d3.csv('./data/adjacency/adj_gname_region.csv', createChordDiagram);
+  } else if (selectedText== 'Suicide attacks') {
+    d3.csv('./data/adjacency/adj_gname_suicide.csv', createChordDiagram);
+  } else if (selectedText== 'Successfull attacks') {
+    d3.csv('./data/adjacency/adj_gname_success.csv', createChordDiagram);
   }
 
 
