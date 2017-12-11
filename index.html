@@ -33,7 +33,7 @@
 					<li><a href="./chord_info.html" style="font-size: 15px; font-weight: bold;">Chord Diagram</a></li>
 					<li><a href="./map_info.html" style="font-size: 15px; font-weight: bold;">Map Visualization</a></li>
 					<li><a href="./screencast.html" style="font-size: 15px; font-weight: bold;">Screen Cast</a></li>
-					<li><a href="./processbook.html" style="font-size: 15px; font-weight: bold;">Precess Book</a></li>
+					<li><a href="./processbook.html" style="font-size: 15px; font-weight: bold;">Process Book</a></li>
 				</ul>
 			</nav>
 
@@ -67,14 +67,14 @@
 							<p>Data Visualization Project</p>
 						</header>
 						<div class="content" >
-							<p style="text-align: left;"> Terrorism is one of the most covered topics by the media. However, it is often the case that only terror attacks on first world countries such as the USA are covered extensively, and the everyday horror in other countries is swept under the carpet. With our dataset we would like to show the global scope of terrorism and the countries which are most affected. Moreover, we would like to show details about individual terror groups, like what weapons do they use most often, or what target do they typically attack? 
+							<p"> Terrorism is one of the most covered topics by the media. However, it is often the case that only terror attacks on first world countries such as the USA are covered extensively, and the everyday horror in other countries is swept under the carpet. With our dataset we would like to show the global scope of terrorism and the countries which are most affected. Moreover, we would like to show details about individual terror groups, like what weapons do they use most often, or what target do they typically attack? 
 							</p>
 
-							<p style="text-align: left;">
+							<p>
 								Our target audience is the everyday citizen, who would like to gain some insight about terrorist attacks in the past 40 to 50 years, in order to complement the information shared by the media.
 							</p>
 
-							<p style="text-align: left;">
+							<p>
 								The dataset used in this work is the open-source database <b>The Global Terrorism Database 
 								<i><a href="dataset.html"">GTD</a></i></b>, containing a large list of terrorist attacks around the world, from 1970 through 2016. 
 							</p>
@@ -101,14 +101,40 @@
 							<h2>Chord Diagram</h2>
 						</header>
 						<div class="content">
-							<p>Chord diagram: ... ??</p>
+							<p>
+							The Chord diagram shows the inter-relationships between entities. Each entity is represented by a node segment, all arranged along a cercle. The connections between nodes, represented by an Arc (Chord), shows similarities between them.</p>
+								<p>We use the Chord diagram to characterize the most active terrorist groups.  
+								We focus on the 30 most common terrorist groups (i.e. the groups responsible for the most attacks), and show their relation to other variables. In order to guarantee the legibility of the diagram, we need to select discrete variables with not too many categories. Based on these observations, we chose to characterize the terrorist groups by the regions in which they're active, the weapons they use, their targets \& preferred type of attack, how often they're successful in their attacks and which groups conduct suicide attacks.</p>
+
+							<a href="https://www.w3schools.com">
+							<span class="row 50% uniform">
+								<div class="4u">
+									<span class="image fit">
+										<img src="images/viz/chord3.png" alt="">
+									</span>
+								</div>
+
+								<div class="4u">
+									<span class="image fit">
+										<img src="images/viz/chord1.png" alt="">
+									</span>
+								</div>
+
+								<div class="4u">
+									<span class="image fit">
+										<img src="images/viz/chord2.png" alt="">
+									</span>
+								</div>
+
+							</span>
+							</a>
 						</div>
 
-						<a href="./chord.html" class="button alt" onClick="return popup(this, 'notes')">
+						<a href="./chord.html" class="button fit" onClick="return popup(this, 'notes')">
 								Visualize the chord </a> <p></p>
 						
 						<footer>
-							<a href="chord_info.html" class="button alt">Learn More</a>
+							<a href="chord_info.html" class="button alt fit">Learn More</a>
 						</footer>
 					</article>
 				</div>
@@ -127,18 +153,20 @@
 							<p>Map Viz: ... ??</p>
 						</div>
 
-						<a href="./Analysis/Test_Map/test.html" class="button alt" onClick="return popup(this, 'notes')">
+						<a href="./Analysis/Test_Map/test.html" class="button fit" onClick="return popup(this, 'notes')">
 								Visualize the map </a> <p></p>
 
 						<footer>
-							<a href="map_info.html" class="button alt">Learn More</a>
+							<a href="map_info.html" class="button alt fit">Learn More</a>
 						</footer>
 					</article>
 				</div>
-				<a href="#four" class="more">Learn More</a>
+				<!--<a href="#four" class="more">Learn More</a> -->
 			</section>
 
+
 		<!-- Four -->
+		<!--
 			<section id="four" class="wrapper post bg-img" data-bg="banner3.jpg">
 				<div class="inner">
 					<article class="box">
@@ -154,7 +182,7 @@
 						</footer>
 					</article>
 				</div>
-			</section>
+			</section>-->
 
 		<!-- Footer -->
 			<footer id="footer">
