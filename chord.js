@@ -1,13 +1,13 @@
 let margin = {
   top: 30,
-  left: 30,
+  left: 100,
   bottom: 10,
   right: 10
 }
 
-let width = 1100 - margin.left - margin.right;
-let height = 1100 - margin.top - margin.bottom;
-let innerRadius = Math.min(width, height) * .25;
+let width = 1000 - margin.left - margin.right;
+let height = 1000 - margin.top - margin.bottom;
+let innerRadius = Math.min(width, height) * .23;
 let outerRadius = innerRadius * 1.1;
 
 let svg = d3.select('body #chartContainer').append('svg')
@@ -17,6 +17,7 @@ let svg = d3.select('body #chartContainer').append('svg')
             .append("g")
             .attr("id", "chordDiagram")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
 
 
 //************************************************************
