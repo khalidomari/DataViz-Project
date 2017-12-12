@@ -69,7 +69,7 @@ var tooltip = d3.select("body")
       .style("font-size","xx-large");
 
 
-d3.csv("latLongMax_no_unknown.csv", function(data) {
+d3.csv("latLongMax_full.csv", function(data) {
   data.forEach(function(d) {
     marks.push({long: d.longitude, lat: d.latitude, country_txt: d.country_txt, gname: d.gname, count: d.count})
   });
