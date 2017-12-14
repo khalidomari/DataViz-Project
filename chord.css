@@ -4,9 +4,9 @@ body {
 
 #buttonContainer {
   float:left;
-  -ms-transform: translate(100px, 400px);
-  -webkit-transform: translate(100px, 400px); /* Safari */
-  transform: translate(100px, 400px);
+  -ms-transform: translate(70px, 400px);
+  -webkit-transform: translate(70px, 400px); /* Safari */
+  transform: translate(70px, 400px);
 }
 
 #chartContainer{
@@ -23,8 +23,7 @@ body {
 
 #instructions{
   color: white;
-  /*position: relative;
-  left:20%;*/
+
   font-family: Arial Black;
 }
 
@@ -45,4 +44,34 @@ body {
     /*position: relative;
     left: 20%;*/
     display: inline-block;
+}
+
+#tooltip {
+        position: absolute;
+        left:0px;
+        top:100px;
+        width: 300px;
+        height: auto;
+        padding: 10px;
+        background-color: #eee;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        pointer-events: none;
+}
+
+#tooltip.hidden {
+        display: none;
+}
+
+
+#tooltip p {
+        margin: 0;
+        font-family: Arial Black;
+        font-size: 12px;
+        line-height: 20px;
+}
+
+#tt_heading {
+        font-size: 14px;
 }
