@@ -7,6 +7,11 @@
   pointer-events: all;
 }
 
+#dropdown {
+    margin-bottom: 20px;
+    margin-right: 35px;
+}
+
 .feature {
   fill: #ccc;
   cursor: pointer;
@@ -28,10 +33,13 @@
 <body>
 <script src="//d3js.org/d3.v3.min.js"></script>
 <script src="//d3js.org/topojson.v1.min.js"></script>
+<script src = "dropdown_options.js"></script>
+<!-- dropdown -->
+<select id="dropdown"></select>
 <script>
 
-var width = window.screen.availWidth,
-    height = window.screen.availHeight,
+var width = window.screen.availWidth/1.01,
+    height = window.screen.availHeight/1.19,
     active = d3.select(null);
 
 var projection = d3.geo.mercator()
@@ -61,7 +69,7 @@ var tooltip = d3.select("body")
       .style("font-size","xx-large");
 
 
-d3.csv("latLongMax.csv", function(data) {
+d3.csv("latLongMax_full.csv", function(data) {
   data.forEach(function(d) {
     marks.push({long: d.longitude, lat: d.latitude, country_txt: d.country_txt, gname: d.gname, count: d.count})
   });
@@ -94,7 +102,7 @@ d3.csv("countryCount.csv", function(data) {
 //Scale color
 var body = d3.select("body"),
     length = 22130, //Max Iraq
-    color = d3.scale.linear().domain([1,length/3])
+    color1 = d3.scale.linear().domain([1,length/3])
       .interpolate(d3.interpolateHcl)
       .range([d3.rgb("#427eff"),d3.rgb('#F90000')]);
 
@@ -108,7 +116,7 @@ d3.json("world-countries.json", function(error, us) {
       .attr("d", path)
       .attr("class", "feature")
       .on("click", clicked)
-      .style("fill",function(d){
+      .style("fill",function(d){if (typeof country[d.properties.name] == 'undefined') {return 'white';}
         return color(Math.min(country[d.properties.name],length/3))});
 
   g.append("path")
@@ -117,17 +125,56 @@ d3.json("world-countries.json", function(error, us) {
       .attr("d", path);
 });
 
+// Define scale to sort data values into color buckets
+var color = d3.scale.threshold()
+    .domain([1,200, 1000, 2500, 5000, length])
+    .range([color1(1), color1(200),color1(1000),color1(2500),color1(5000), color1(length/3)]);
+
+// Legend Stuff
+
+var y = d3.scale.sqrt()
+    .domain([0, length])
+    .range([0,325])
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .tickValues(color.domain())
+    .orient("up")
+
+var legend = svg.append("g")
+                .attr("class", "key")
+                .style("fill","#ccc")
+                .attr("transform", "translate(910, 10)")
+                .call(yAxis);
+
+legend.selectAll("rect")
+  .data(color.range().map(function(d, i) {
+      return {
+        y0: i ? y(color.domain()[i - 1]) : y.range()[0],
+        y1: i < color.domain().length ? y(color.domain()[i]) : y.range()[1],
+        z: d
+          };
+        }))
+  .enter().append("rect")
+  .attr("height", 8)
+  .attr("x", function(d) { return d.y0; })
+      .attr("width", function(d) { return d.y1 - d.y0; })
+      .style("fill", function(d) { return d.z; });
+
+
 function resetColor(d) {
   g.selectAll("path").filter(function(d) {
     if (d.type == "Feature") {
       return d.properties.name == name;
     }
-    return false;}).style("fill",color(country[name]));
+    return false;}).style("fill",function(d){if (typeof country[d.properties.name] == 'undefined') {return 'white';}
+      return color(Math.min(country[d.properties.name],length/3))});
 }
 
 function clicked(d) {
   g.selectAll("circle").remove();
   tooltip.style("visibility", "hidden");
+  d3.select("#dropdown").selectAll("option").remove();
   resetColor(d);
   if (active.node() === this) return reset(d);
   active.classed("active", false);
@@ -148,16 +195,59 @@ function clicked(d) {
     }
     return false;}).style("fill","#ccc");
 
-  markers(name);
+  var gnames = [];
+  // populate drop-down
+  d3.select("#dropdown")
+    .selectAll("option")
+    .data(dropdown_options.filter(function(d) { return d.value == name; }))
+    .enter()
+    .append("option")
+    .attr("value", function(option) { return option.value; })
+    .text(function(option) { gnames.push(option.text);
+      return option.text; });
+
+  markers(name,gnames);
 
   svg.transition()
       .duration(750)
       .call(zoom.translate(translate).scale(scale).event);
 
   tooltip.text(name+" : "+country[name]+" events");
+  tooltip.style("top", "7%");
   tooltip.style("visibility", "visible");
   tooltip.style("color", "white");
 }
+
+var dropDown = d3.select("#dropdown");
+
+dropDown.on("change", function(d) {
+
+  var tooltip = d3.select("body")
+	  .append("div")
+	  .style("position", "absolute")
+	  .style("z-index", "10")
+	  .style("visibility", "hidden")
+    .style("color","white");
+
+  // newly selected dataset
+  g.selectAll("circle").remove();
+  g.selectAll(".mark")
+    .data(marks.filter(function(d) { return d.country_txt == name && d3.event.target.options[d3.event.target.options.selectedIndex].text == d.gname; }))
+    .enter()
+    .append("circle")
+    .attr("r", function(d){return Math.log(d.count+1)/2;})
+    .style("fill", function(d) { return "none"; })
+    .style("fill", function(d) { return intToRGB(hashCode(d.gname)); })
+    .attr("transform", function(d) {
+      pro = projection([d.long,d.lat])
+      pro[0] = pro[0];
+      pro[1] = pro[1];
+      return "translate(" + pro + ")";})
+    .on("mouseover", function(d){tooltip.text([d.count]+" by "+d.gname);
+      return tooltip.style("visibility", "visible");})
+  	.on("mousemove", function(d){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+  	.on("mouseout", function(d){return tooltip.style("visibility", "hidden");});
+});
 
 function reset(d) {
   active.classed("active", false);
@@ -167,6 +257,8 @@ function reset(d) {
   svg.transition()
       .duration(750)
       .call(zoom.translate([387, 322]).scale(.25).event);
+
+  d3.select("#dropdown").selectAll("option").remove();
 
   resetColor(d);
 
@@ -194,7 +286,7 @@ function intToRGB(i){
     return "00000".substring(0, 6 - c.length) + c;
 }
 
-function markers(name) {
+function markers(name,gnames) {
 
   var tooltip = d3.select("body")
 	  .append("div")
@@ -205,12 +297,12 @@ function markers(name) {
 
 
   g.selectAll(".mark")
-    .data(marks.filter(function(d) { return d.country_txt == name; }))
+    .data(marks.filter(function(d) { return d.country_txt == name && gnames.indexOf(d.gname)>=0; }))
     .enter()
     .append("circle")
     .attr("r", function(d){return Math.log(d.count+1)/2;})
     .style("fill", function(d) { return "none"; })
-    .style("stroke", function(d) { return intToRGB(hashCode(d.gname)); })
+    .style("fill", function(d) { return intToRGB(hashCode(d.gname)); })
     .attr("transform", function(d) {
       pro = projection([d.long,d.lat])
       pro[0] = pro[0];
