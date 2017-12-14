@@ -1,3 +1,6 @@
+/* © Chiara Orvati, EPFL Data Visualization Project */
+
+
 let margin = {
   top: 30,
   left: 100,
