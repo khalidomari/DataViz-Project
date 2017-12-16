@@ -260,7 +260,7 @@ dropDown.on("change", function(d) {
     .enter()
     .append("circle")
     .attr('r',function(d){
-      return Math.log(10+d.count)/zoom.scale();
+      return Math.log(50+d.count*d.count/2+d.count)/zoom.scale();
     })
     .style("fill", function(d) { return "none"; })
     .style("fill", function(d) { return intToRGB(hashCode(d.gname)); })
@@ -330,7 +330,7 @@ function markers(name,gnames) {
     .enter()
     .append("circle")
     .attr('r',function(d){
-      return Math.log(10+d.count)/zoom.scale();
+      return Math.log(50+d.count*d.count/2+d.count)/d3.event.scale;
     })
     .style("fill", function(d) { return "none"; })
     .style("fill", function(d) { return intToRGB(hashCode(d.gname)); })
