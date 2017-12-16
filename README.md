@@ -93,4 +93,7 @@ We use the Chord diagram to characterize the most active terrorist groups. We fo
 ## Website
 	- link to github repo
 	- Check everything
+## Github
+	- Readme: add some technical descriptions
+	- link to the screencast
 
