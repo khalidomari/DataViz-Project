@@ -57,25 +57,12 @@ We use the Chord diagram to characterize the most active terrorist groups. We fo
 
 # TO DO
 ## Process Book:
-	- Related work
-	- Processing Steps: Map Visualization
-		- description, 
-		- add features used for the map in the table (gname (first 5/country) ...)
-	
-	- Design: Map Visualization
-		- First design, 
-		- Problems encountered and evolution towards final design
-			- Huge amount of data, 
-			- the first 5 terrorist group are dominant
-			- ...
-		- Final design
+
+    Add examples for the map!!
 
 	- Discussion:
 		- What we learned about the data:
-			- Map Visualization:
-				- Unkown (ignored by the mainstream media) countries with high attck frequency (Peru, India, Sri Lanka, Phillipines, Colombia, El Salvador), 
-				- Countries (highly covered by the media) like the USA has 2758 attacks, India has 10'978 attacks :o or Peru with 6088
-			- How did you answer your questions?
+			-add examples for map!
 
 	- Evaluation of the Visualizations:  How well does your visualization work, and how could you further improve it
 		- Future Improvement
@@ -84,6 +71,8 @@ We use the Chord diagram to characterize the most active terrorist groups. We fo
 				- Time selection: small number of events by country, nothing to visualize in some time periods
 				- Visualize by regions
 				- Russia / Usa, can't visualize attacks due to the size and geographically sparsed.
+
+    - Peer Evaluations!!
 
 
 ## ScreenCast (2 min) max +5sec

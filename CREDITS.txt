@@ -1,2 +1,5 @@
 # Image Credits
 # Template
+# GTD
+
+National Consortium for the Study of Terrorism and Responses to Terrorism (START). (2016). Global Terrorism Database - Full Data File 1970-2016, June 2017 Release.
