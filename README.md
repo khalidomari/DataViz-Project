@@ -41,6 +41,9 @@ Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/vizReport.
 
 [Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
 
+## Website Screen Cast
+[![Screen Cast](https://img.youtube.com/vi/G9q_9Dk1p_I/0.jpg)](https://www.youtube.com/watch?v=G9q_9Dk1p_I)
+
 ## Visualizations
 
 #### CHORD DIAGRAM
@@ -80,9 +83,9 @@ We use the Chord diagram to characterize the most active terrorist groups. We fo
 	- Chord Diagram 40sec
 	- Map Visualization 40sec
 ## Website
-	- link to github repo
+	x link to github repo
 	- Check everything
 ## Github
-	- Readme: add some technical descriptions
-	- link to the screencast
+	** Readme: add some technical descriptions
+	X link to the screencast
 
