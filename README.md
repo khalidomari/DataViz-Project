@@ -37,7 +37,7 @@ latitude|	This field records the latitude (based on WGS1984 standards) of the ci
 The Process Book can be accessed online:
 on [Overleaf](https://www.overleaf.com/read/jntyybhvyjrb) (read only), 
 on our [Website](https://khalidomari.github.io/DataViz-Project/processbook.html) <br />
-Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/vizReport.pdf) <br />
+Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/processbook.pdf) <br />
 
 ## Website
 ![https://khalidomari.github.io/DataViz-Project/](https://github.com/khalidomari/DataViz-Project/blob/master/images/viz/website.png)
