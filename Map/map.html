@@ -74,7 +74,7 @@ var tooltip = d3.select("body")
       .style("visibility", "hidden")
       .style("font-size","x-large");
 
-
+//collect attacks
 d3.csv("events.csv", function(data) {
   data.forEach(function(d) {
     marks.push({long: d.longitude, lat: d.latitude, country_txt: d.country_txt, gname: d.gname, count: d.count})
@@ -98,6 +98,7 @@ svg
     .call(zoom) // delete this line to disable free zooming
     .call(zoom.event);
 
+//get countries names
 var country = {};
 d3.csv("countryCount.csv", function(data) {
     data.forEach(function(d) {
@@ -112,7 +113,7 @@ var body = d3.select("body"),
       .interpolate(d3.interpolateHcl)
       .range([d3.rgb("#427eff"),d3.rgb('#F90000')]);
 
-
+//map creation from json
 d3.json("world-countries.json", function(error, us) {
   if (error) throw error;
 
@@ -132,6 +133,7 @@ d3.json("world-countries.json", function(error, us) {
       .attr("d", path);
 });
 
+//list of terrorist groups
 var gnames = [];
 
 // Define scale to sort data values into color buckets
@@ -139,7 +141,7 @@ var color = d3.scale.threshold()
     .domain([1,200, 1000, 2500, 5000, length])
     .range([color1(1), color1(200),color1(1000),color1(2500),color1(5000), color1(length/3)]);
 
-// Legend Stuff
+// Legend creation
 
 var y = d3.scale.sqrt()
     .domain([0, length])
@@ -172,7 +174,7 @@ legend.selectAll("rect")
       .attr("width", function(d) { return d.y1 - d.y0; })
       .style("fill", function(d) { return d.z; });
 
-
+//get original color from choropleth
 function resetColor(d) {
   g.selectAll("path").filter(function(d) {
     if (d.type == "Feature") {
@@ -191,6 +193,7 @@ function clicked(d) {
   active.classed("active", false);
   active = d3.select(this).classed("active", true);
 
+  //defines zoom boundaries
   var bounds = path.bounds(d),
       dx = bounds[1][0] - bounds[0][0],
       dy = bounds[1][1] - bounds[0][1],
@@ -200,6 +203,7 @@ function clicked(d) {
       translate = [width / 2 - scale * x, height / 2 - scale * y];
 
   name = d.properties.name;
+  //get events from this country
   g.selectAll("path").filter(function(d) {
     if (d.type == "Feature") {
       return d.properties.name == name;
@@ -208,7 +212,7 @@ function clicked(d) {
 
   var defaultOption = true;
   gnames = [];
-  // populate drop-down
+  // populate drop-down whith top 5 gnames
   d3.select("#dropdown")
     .selectAll("option")
     .data(dropdown_options.filter(function(d) { if(d.value != name & defaultOption){defaultOption = false;
@@ -224,14 +228,15 @@ function clicked(d) {
       return option.text; })
      .property("selected", function(d){return d.value != name; });
 
-
+  //draw circles
   markers(name,gnames);
 
+ //zoom transitions
   svg.transition()
       .duration(750)
       .call(zoom.translate(translate).scale(scale).event);
 
-
+  //show country names
   tooltip.text(name+" : "+country[name]+" attacks");
   if (typeof country[name] == 'undefined'){tooltip.text(name+" : undefined number of attacks");}
   tooltip.style("left", "60%");
@@ -275,6 +280,7 @@ dropDown.on("change", function(d) {
   	.on("mouseout", function(d){return tooltip.style("visibility", "hidden");});
 });
 
+//rests position and removes circles when country uncklicked
 function reset(d) {
   active.classed("active", false);
   active = d3.select(null);
@@ -291,6 +297,7 @@ function reset(d) {
   tooltip.style("visibility", "hidden");
 }
 
+//scales elements according to zoom
 function zoomed() {
   g.style("stroke-width", 1.5 / d3.event.scale + "px");
   g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
@@ -299,6 +306,7 @@ function zoomed() {
   });
 }
 
+//hashes a string
 function hashCode(str) {
     var hash = 0;
     for (var i = 0; i < str.length; i++) {
@@ -307,6 +315,7 @@ function hashCode(str) {
     return hash;
 }
 
+//creates color from hash
 function intToRGB(i){
     var c = (i & 0x00FFFFFF)
         .toString(16)
@@ -315,6 +324,7 @@ function intToRGB(i){
     return "00000".substring(0, 6 - c.length) + c;
 }
 
+//draws circles and hover text
 function markers(name,gnames) {
 
   var tooltip = d3.select("body")
