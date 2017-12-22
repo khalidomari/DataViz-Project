@@ -45,7 +45,8 @@ Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/processboo
 [Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
 
 ## Website Screen Cast
-[![Screen Cast](https://img.youtube.com/viR8-hJ8-Bgw4/0.jpg)](https://www.youtube.com/watch?v=R8-hJ8-Bgw4)
+
+[![ScreenCast](https://img.youtube.com/viR8-hJ8-Bgw4/0.jpg)](https://www.youtube.com/watch?v=R8-hJ8-Bgw4)
 
 ## Visualizations
 
