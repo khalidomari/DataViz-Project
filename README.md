@@ -19,16 +19,19 @@ For every incident, more than 100 variables are available, amongst which are bas
 
 In the following table, we list the variables used for the visualization and the values they can take:
 
-| Variable name       				| Description |
-| ----------------------------------| ---------------------------------- |
-| Variable name	|	Description| 
-| gname	|	Name of the attacker group, taken from standardized list of group names. Can be "Unknown".| 
-| region_txt	|	North America, Central America & Caribbean, South America, East Asia, Southeast Asia, South Asia, Central Asia, Western Europe, Eastern Europe, Middle East & North Africa, Sub-Saharan Africa, Australasia & Oceania| 
-| attcktype1_txt	|	Assassination, Hijacking, Kidnapping, Barricade Incident, Bombing/ Explosion, Armed Assault, Unarmed Assault, Facility/ Infrastructure Attack, Unknown| 
-| targtype1_txt	|	Buisness, Governement(General), Police, Military, Abortion related, Airports & Aircraft, Government (Diplomatic), Educational institution, Food or water supply, Journalists & Media, Maritime, NGO, Other, Private citizens & Property, Religious figures/ Institutions, Telecommunication, Terrorists/ Non-state militias, Tourists, Transportation, Unknown, Utilities, Violent political parties| 
-| weaptype1_txt	|	Biological, Chemical, Radiological, Nuclear, Firearms, Explosives/Bombs/Dynamite, Fake Weapons, Incendiary, Melee, Vehicle, Sabotage Equipment, Other, Unknown| 
-| success	|	1 if the attack was successfull, 0 otherwise| 
-| suicide	|	1 if it was a suicide attack, 0 otherwise|
+| Variable name 	| Description |         Visualization 		| 
+| ----------------------| ----------- | --------------------------------- |
+| gname	| Name of the attacker group, taken from standardized list of group names. Can be "Unknown".|    Map & Chord|
+|eventid| Unique identifier of a terrorist attack which was mainly used to count the number of attacks per country and geographical coordinates.| Map|
+|country_txt| This field identifies the country or location where the incident occurred. In the case where the country in which an incident occurred cannot be identified, it is coded as “Unknown.”| Map|
+longitude| This field records the longitude (based on WGS1984 standards) of the city in which the event occurred.| Map|
+latitude|	This field records the latitude (based on WGS1984 standards) of the city in which the event occurred.| Map|
+| region_txt	|	North America, Central America & Caribbean, South America, East Asia, Southeast Asia, South Asia, Central Asia, Western Europe, Eastern Europe, Middle East & North Africa, Sub-Saharan Africa, Australasia & Oceania|  Chord|
+| attcktype1_txt	|	Assassination, Hijacking, Kidnapping, Barricade Incident, Bombing/ Explosion, Armed Assault, Unarmed Assault, Facility/ Infrastructure Attack, Unknown| Chord| 
+| targtype1_txt	|	Buisness, Governement(General), Police, Military, Abortion related, Airports & Aircraft, Government (Diplomatic), Educational institution, Food or water supply, Journalists & Media, Maritime, NGO, Other, Private citizens & Property, Religious figures/ Institutions, Telecommunication, Terrorists/ Non-state militias, Tourists, Transportation, Unknown, Utilities, Violent political parties|  Chord|
+| weaptype1_txt	|	Biological, Chemical, Radiological, Nuclear, Firearms, Explosives/Bombs/Dynamite, Fake Weapons, Incendiary, Melee, Vehicle, Sabotage Equipment, Other, Unknown|  Chord|
+| success	|	1 if the attack was successfull, 0 otherwise|  Chord|
+| suicide	|	1 if it was a suicide attack, 0 otherwise| Chord|
 
 ## Process Book
 The Process Book can be accessed online:
@@ -42,7 +45,7 @@ Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/vizReport.
 [Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
 
 ## Website Screen Cast
-[![Screen Cast](https://img.youtube.com/vi/G9q_9Dk1p_I/0.jpg)](https://www.youtube.com/watch?v=G9q_9Dk1p_I)
+[![Screen Cast](https://img.youtube.com/viR8-hJ8-Bgw4/0.jpg)](https://www.youtube.com/watch?v=R8-hJ8-Bgw4)
 
 ## Visualizations
 
@@ -54,38 +57,8 @@ We use the Chord diagram to characterize the most active terrorist groups. We fo
 [Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
 
 #### MAP Visualization
+In order to make the dataset express itself, and since we have a geolocalized data, we use an interactive map visualization. 
+The map is showing the distribution of attacks by (longitude, latitude), the total number of attacks and also the first 5 most active terrorist groups by country.
+
 ![Map Visualization](https://github.com/khalidomari/DataViz-Project/blob/master/images/viz/map.png)
 [Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
-
-
-# TO DO
-## Process Book:
-
-    Add examples for the map!!
-
-	- Discussion:
-		- What we learned about the data:
-			-add examples for map!
-
-	- Evaluation of the Visualizations:  How well does your visualization work, and how could you further improve it
-		- Future Improvement
-			- Map Visualization:
-				-  Show summaries of some attacks ...
-				- Time selection: small number of events by country, nothing to visualize in some time periods
-				- Visualize by regions
-				- Russia / Usa, can't visualize attacks due to the size and geographically sparsed.
-
-    - Peer Evaluations!!
-
-
-## ScreenCast (2 min) max +5sec
-	- Website (dataset, process book, screencast, menu ...) 40sec
-	- Chord Diagram 40sec
-	- Map Visualization 40sec
-## Website
-	x link to github repo
-	- Check everything
-## Github
-	** Readme: add some technical descriptions
-	X link to the screencast
-
