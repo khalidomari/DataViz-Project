@@ -4057,14 +4057,14 @@
 			}
 
 			.post .more.current {
-				-moz-transition: height 0.2s ease;
-				-webkit-transition: height 0.2s ease;
-				-ms-transition: height 0.2s ease;
-				transition: height 0.2s ease;
-				-moz-animation: more 0.75s ease-out 2s forwards;
-				-webkit-animation: more 0.75s ease-out 2s forwards;
-				-ms-animation: more 0.75s ease-out 2s forwards;
-				animation: more 0.75s ease-out 2s forwards;
+				-moz-transition: height 0.1s ease;
+				-webkit-transition: height 0.1s ease;
+				-ms-transition: height 0.1s ease;
+				transition: height 0.1s ease;
+				-moz-animation: more 0.3s ease-out .5s forwards;
+				-webkit-animation: more 0.3s ease-out .5s forwards;
+				-ms-animation: more 0.3s ease-out .5s forwards;
+				animation: more 0.3s ease-out .5s forwards;
 			}
 
 			.post .more:hover {
