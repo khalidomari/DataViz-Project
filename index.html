@@ -16,6 +16,31 @@
 				else href=mylink.href; 
 				window.open(href, windowname, 'width=2300,height=1000,scrollbars=yes,fullscreen=yes, menubar=no, status=no, titlebar=no, fullscreen=yes'); 
 				return false; } </SCRIPT>
+
+		<style>
+			/* width */
+			::-webkit-scrollbar {
+			    width: 10px;
+			}
+
+			/* Track */
+			::-webkit-scrollbar-track {
+			    box-shadow: inset 0 0 5px black; 
+			    border-radius: 10px;
+			    background: rgba(255,255,255,0.2)
+			}
+			 
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+			    background: rgba(48, 0, 0, 0.5); 
+			    border-radius: 10px;
+			}
+
+			/* Handle on hover */
+			::-webkit-scrollbar-thumb:hover {
+			    background: rgba(163, 158, 158, 0.2); 
+			}
+		</style>
 	</head>
 	<body>
 
@@ -30,8 +55,8 @@
 				<ul class="links">
 					<li><a href="./index.html" style="font-size: 15px; font-weight: bold;">Home</a></li>
 					<li><a href="./dataset.html" style="font-size: 15px; font-weight: bold;">Dataset</a></li>
-					<li><a href="#two" style="font-size: 15px; font-weight: bold;">Chord Diagram</a></li>
-					<li><a href="#three" style="font-size: 15px; font-weight: bold;">Map Visualization</a></li>
+					<li><a href="#three" style="font-size: 15px; font-weight: bold;">Chord Diagram</a></li>
+					<li><a href="#six" style="font-size: 15px; font-weight: bold;">Map Visualization</a></li>
 					<!--<li><a href="./screencast.html" style="font-size: 15px; font-weight: bold;">Screen Cast</a></li>-->
 					<li><a href="./processbook.html" style="font-size: 15px; font-weight: bold;">Process Book</a></li>
 					<li><a href="https://github.com/khalidomari/DataViz-Project" style="font-size: 15px; font-weight: bold;">GitHub Repository</a></li>
@@ -96,7 +121,7 @@
 							<p"> How to use the website/Visualization
 							</p>
 							
-						<div class="content">
+						<div class="content" align="justify">
 							<iframe width="760" height="400" src="https://www.youtube.com/embed/G9q_9Dk1p_I" frameborder="0" gesture="media" showinfo="0" controls=0 allow="encrypted-media" allowfullscreen></iframe>
 						</div>
 
@@ -114,13 +139,13 @@
 
 
 		<!-- Chord Diagram -->
-			<section id="two" class="wrapper post bg-img" data-bg="banner5.jpg">
+			<section id="three" class="wrapper post bg-img" data-bg="banner5.jpg">
 				<div class="inner">
 					<article class="box">
 						<header>
 							<h2>Chord Diagram</h2>
 						</header>
-						<div class="content">
+						<div class="content" align="justify">
 							<p>
 							The Chord diagram shows the inter-relationships between entities. Each entity is represented by a node segment, all arranged along a cercle. The connections between nodes, represented by an Arc (Chord), shows similarities between them. <br>
 							We use the Chord diagram to characterize the most active terrorist groups. 
@@ -137,18 +162,77 @@
 								Visualize the chord </a> <p></p>
 					</article>
 				</div>
-				<a href="#three" class="more">Learn More</a>
+				<a href="#four" class="more">Learn More</a>
+			</section>
+
+		<!-- Chord Diagram Analysis 1 -->
+			<section id="four" class="wrapper post bg-img" data-bg="banner5.jpg">
+				<div class="inner">
+					<article class="box">
+						<header>
+							<h2>Chord Diagram</h2>
+
+						</header>
+						<div class="content" align="justify">
+							<p>
+							<strong><span style="color: red">Analysis</span></strong> <br> <br>
+							From the <strong>Chord Diagram</strong> (Figures bellow) we depict the proportion of suicide attacks for each terror group. We can see that only 10 groups out of the 30 use this type of attack, and also that the Taliban and ISIS are responsible for more than <strong>half of all suicide attacks</strong>.
+							
+								<ul>Exploring the visualization for the <strong>target type</strong>, we can detect some interesting details: 
+									<li>The three main targets of the Taliban are the police, private citizens & property, and the military. One the other hand, for ISIS's case, the order is different: the main target is private citizens & property, followed by the military and the police </li>
+									<li>The Farabundo Marti National Liberation Front gives another interesting example: it alone is responsible for about one third of the attacks on Utilities’, which in this context are facilities for the transmission or generation of energy.</li>
+								</ul>
+								<img src="./images/viz/analysis1.png" alt="region africa" height="300" align="middle"> 
+							 </p>
+
+						</div>
+
+						<a href="./chord.html" class="button small fit" onClick="return popup(this, 'notes')">
+								Visualize the chord </a> <p></p>
+					</article>
+				</div>
+				<a href="#five" class="more">Learn More</a>
+			</section>
+
+			<!-- Chord Diagram Analysis 2 -->
+			<section id="five" class="wrapper post bg-img" data-bg="banner5.jpg">
+				<div class="inner">
+					<article class="box">
+						<header>
+							<h2>Chord Diagram</h2>
+
+						</header>
+						<div class="content" align="justify">
+							<p>
+							<strong><span style="color: red">Analysis</span></strong> <br> <br>
+
+							Selecting ’Attack Region’, we can easily determine which groups are active in which regions of the world. For instance, in Sub-Saharan Africa, the active groups are the African National Congress, Al-Shabaab and Boko Haram. <br> <br>
+							Equally, we immediately notice the regions most affected by terrorism, amongst which are South Asia and South America, also demonstrated. <br>
+							<strong>Usually, we don’t necessarily associate these regions with terrorism.</strong> <br>
+							This is because the groups active in these regions are very local, i.e. their activities are restrained to this area and do not expand to Europe or America. Hence, as these groups don’t pose an immediate threat to the everyday first world citizen, they are only rarely mentioned in news reports. <br> <br>
+
+							<strong>This is a pity, as we can clearly observe that about one third of the worldwide terror attacks happen in South Asia and South America (Note: this proportion of one third is actually true for the entire dataset, and not only for the top 30 terror groups, as a quick manipulation in Python shows).</strong> <br>
+							<img src="./images/viz/regions.png" alt="regions" height="200" align="middle"> 
+						</div>
+
+						<a href="./chord.html" class="button small fit" onClick="return popup(this, 'notes')">
+								Visualize the chord </a> <p></p>
+					</article>
+				</div>
+				<a href="#six" class="more">Learn More</a>
 			</section>
 
 		<!-- Map visualization -->
-			<section id="three" class="wrapper post bg-img" data-bg="banner4.jpg">
+			<section id="six" class="wrapper post bg-img" data-bg="banner4.jpg">
 				<div class="inner">
 					<article class="box">
 						<header>
 							<h2>Map Visualization</h2>
 						</header>
-						<div class="content">
-							<p>Map Viz: ... ??</p>
+						<div class="content" align="justify">
+							<p> In order to make the dataset express itself, and since we have a geolocalized data, we use an interactive map visualization. <br>
+								The map is showing the distribution of attacks by (longitude, latitude), the total number of attacks and also the first 5 most active terrorist groups by country.<br>
+							</p>
 
 							<a href="./Map/map.html" onClick="return popup(this, 'notes')">
 							<span class="image fit">
@@ -162,7 +246,35 @@
 
 					</article>
 				</div>
-				<!--<a href="#four" class="more">Learn More</a> -->
+				<a href="#seven" class="more">Learn More</a>
+			</section>
+
+			<!-- Map Viz Analysis 2 -->
+			<section id="seven" class="wrapper post bg-img" data-bg="banner5.jpg">
+				<div class="inner">
+					<article class="box">
+						<header>
+							<h2>Map Visualization</h2>
+
+						</header>
+						<div class="content" align="justify">
+							<p>
+							<strong><span style="color: red">Analysis</span></strong> <br>
+							<p>
+							From the <strong>Map Visualization</strong>, which indicates the number of attacks per country, we can make out the countries most affected by terrorism: Besides the <strong>’expected’</strong> ones like Iraq (22’130 events), Afghanistan (11’306 events) & Pakistan (13’634 events), we also notice some countries which are not typically covered by the mainstream media: We notice for example India with nearly 11’000 events, the Phillipines with 6212 attacks, and Peru and Columbia, which both have between 6000 and 9000 attacks. Another interesting example is El Salvador, which has more than 5000 attacks, which is a huge amount for such a small country. It is sad that such countries do not get more attention from the mainstream media, considering the fact that the United States of America, which cover almost 500 times the surface of El Salvador, have only suffered from half the number of attacks. <br> <br>
+							When looking at the situation in the USA, we can see that the most prominent group are Anti-Abortion extremists followed by Left-Wing Militants (although these attacks may date a while back).
+							</p>
+
+							<span class="image fit">
+								<img src="images/viz/map_analysis.png" alt="">
+							</span> 
+						</div>
+
+						<a href="./Map/map.html" class="button small fit" onClick="return popup(this, 'notes')">
+								Visualize the map </a> <p></p>
+					</article>
+				</div>
+				
 			</section>
 
 		<!-- Footer -->

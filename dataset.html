@@ -10,6 +10,31 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<style>
+			/* width */
+			::-webkit-scrollbar {
+			    width: 10px;
+			}
+
+			/* Track */
+			::-webkit-scrollbar-track {
+			    box-shadow: inset 0 0 5px black; 
+			    border-radius: 10px;
+			    background: rgba(255,255,255,0.2)
+			}
+			 
+			/* Handle */
+			::-webkit-scrollbar-thumb {
+			    background: rgba(48, 0, 0, 0.5); 
+			    border-radius: 10px;
+			}
+
+			/* Handle on hover */
+			::-webkit-scrollbar-thumb:hover {
+			    background: rgba(163, 158, 158, 0.2); 
+			}
+		</style>
 	</head>
 	<body class="subpage">
 
@@ -52,7 +77,7 @@
 							<p>For every incident, more than 100 variables are available, amongst which are basic information, like the date and location of the incident, but also more interesting variables, like the attack type (e.g. Bombing, Assassination, Kidnapping, ...), the target (e.g. Military, Private Citizens and Property, Transportation, ...), and the name of the group who claimed responsibility for the attack.</p>
 							<a href="https://www.start.umd.edu/gtd/about/" class="button alt small fit" onClick="return popup(this, 'notes')">More informations on GTD website</a>
 
-							<p>In the following table, we list the variables used for the visualization and the values they can take.</p>
+							<p>In the following table, we list the variables used for the visualizations (Chord Diagram and Map) and the values they can take.</p>
 
 							<h5>Variables used for the visualizations</h5>
 							<div class="table-wrapper">
@@ -61,38 +86,74 @@
 										<tr>
 											<th>Variable name</th>
 											<th>Description</th>
+											<th>Visualization</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>gname</td>
-											<td>Name of the attacker group, taken from standardized list of group names.
-											Can be "Unknown".</td>
+											<td>Name of the attacker group, taken from standardized list of group names. Can be "Unknown".</td>
+											<td>Chord & Map</td>
 										</tr>
+
+										<tr>
+											<td>eventid</td>
+											<td>Unique identifier of a terrorist attack which was mainly used to count the number of attacks per country and geographical coordinates. </td>
+											<td>Map</td>
+										</tr>
+
+										<tr>
+											<td>country_txt</td>
+											<td>This field identifies the country or location where the incident occurred. In the case where the country in which an incident occurred cannot be identified, it is coded as “Unknown.”</td>
+											<td>Map</td>
+										</tr>
+
 										<tr>
 											<td>region_txt</td>
 											<td>North America, Central America & Caribbean, South America, East Asia, Southeast Asia, South Asia, Central Asia, Western Europe, Eastern Europe, Middle East & North Africa, Sub-Saharan Africa, Australasia & Oceania</td>
+											<td>Chord</td>
 										</tr>
+
+										<tr>
+											<td>longitude</td>
+											<td>This field records the longitude (based on WGS1984 standards) of the city in which the event occurred.</td>
+											<td>Map</td>
+										</tr>
+
+										<tr>
+											<td>latitude</td>
+											<td>This field records the latitude (based on WGS1984 standards) of the city in which the event occurred.</td>
+											<td>Map</td>
+										</tr>
+
+
 										<tr>
 											<td>attcktype1_txt</td>
 											<td> Assassination, Hijacking, Kidnapping, Barricade Incident, Bombing/ Explosion, Armed Assault, Unarmed Assault, Facility/ Infrastructure Attack, Unknown</td>
+											<td>Chord</td>
 										</tr>
 										<tr>
 											<td>targtype1_txt</td>
 											<td>Buisness, Governement(General), Police, Military, Abortion related,  Airports  & Aircraft, Government (Diplomatic), Educational institution, Food or water supply, Journalists & Media, Maritime, NGO, Other, Private citizens & Property, Religious figures/ Institutions, Telecommunication, Terrorists/ Non-state militias, Tourists, Transportation, Unknown, Utilities, Violent political parties</td>
+											<td>Chord</td>
 										</tr>
 										<tr>
 											<td>weaptype1_txt</td>
 											<td>Biological, Chemical, Radiological, Nuclear, Firearms, Explosives/Bombs/Dynamite, Fake Weapons, Incendiary, Melee, Vehicle, Sabotage Equipment, Other, Unknown</td>
+											<td>Chord</td>
 										</tr>
 										<tr>
 											<td>success</td>
 											<td>1 if the attack was successfull, 0 otherwise</td>
+											<td>Chord</td>
 										</tr>
 										<tr>
 											<td>suicide</td>
 											<td>1 if it was a suicide attack, 0 otherwise</td>
+											<td>Chord</td>
 										</tr>
+										
+
 									</tbody>
 								</table>
 
