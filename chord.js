@@ -1,4 +1,4 @@
-/* © Chiara Orvati, EPFL Data Visualization Project */
+/* © Chiara Orvati, Skander Hajri, Khalid Omari EPFL Data Visualization Project */
 
 
 let margin = {
