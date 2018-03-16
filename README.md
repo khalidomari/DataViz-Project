@@ -42,7 +42,7 @@ Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/processboo
 ## Website
 ![https://khalidomari.github.io/DataViz-Project/](https://github.com/khalidomari/DataViz-Project/blob/master/images/viz/website.png)
 
-[Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
+[Click to visit the website](https://khalidomari.github.io/Data_Vizualization_Project_Global_Terrorism/)
 
 ## Website Screen Cast
 
