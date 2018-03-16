@@ -1,4 +1,4 @@
-# DataViz-Project
+# Data Vizualization Project: Global Terrorism
 Project repository for the Data Visualization Course COM-480 (EPFL)
 
 Chiara Orvati,
@@ -36,11 +36,11 @@ latitude|	This field records the latitude (based on WGS1984 standards) of the ci
 ## Process Book
 The Process Book can be accessed online:
 on [Overleaf](https://www.overleaf.com/read/jntyybhvyjrb) (read only), 
-on our [Website](https://khalidomari.github.io/DataViz-Project/processbook.html) <br />
-Or [download it as PDF](https://khalidomari.github.io/DataViz-Project/processbook.pdf) <br />
+on our [Website](https://khalidomari.github.io/Data_Vizualization_Project_Global_Terrorism/processbook.html) <br />
+Or [download it as PDF](https://khalidomari.github.io/Data_Vizualization_Project_Global_Terrorism/processbook.pdf) <br />
 
 ## Website
-![https://khalidomari.github.io/DataViz-Project/](https://github.com/khalidomari/DataViz-Project/blob/master/images/viz/website.png)
+![https://khalidomari.github.io/DataViz-Project/](https://github.com/khalidomari/Data_Vizualization_Project_Global_Terrorism/blob/master/images/viz/website.png)
 
 [Click to visit the website](https://khalidomari.github.io/Data_Vizualization_Project_Global_Terrorism/)
 
@@ -55,11 +55,11 @@ The Chord diagram shows the inter-relationships between entities. Each entity is
 
 We use the Chord diagram to characterize the most active terrorist groups. We focus on the 30 most common terrorist groups (i.e. the groups responsible for the most attacks), and show their relation to other variables. In order to guarantee the legibility of the diagram, we need to select discrete variables with not too many categories. Based on these observations, we chose to characterize the terrorist groups by the regions in which they're active, the weapons they use, their targets \& preferred type of attack, how often they're successful in their attacks and which groups conduct suicide attacks.
 ![Chord](https://github.com/khalidomari/DataViz-Project/blob/master/images/viz/chord_all.png)
-[Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
+[Click to visit the website](https://khalidomari.github.io/Data_Vizualization_Project_Global_Terrorism/)
 
 #### MAP Visualization
 In order to make the dataset express itself, and since we have a geolocalized data, we use an interactive map visualization. 
 The map is showing the distribution of attacks by (longitude, latitude), the total number of attacks and also the first 5 most active terrorist groups by country.
 
-![Map Visualization](https://github.com/khalidomari/DataViz-Project/blob/master/images/viz/map.png)
-[Click to visit the website](https://khalidomari.github.io/DataViz-Project/)
+![Map Visualization](https://github.com/khalidomari/Data_Vizualization_Project_Global_Terrorism/blob/master/images/viz/map.png)
+[Click to visit the website](https://khalidomari.github.io/Data_Vizualization_Project_Global_Terrorism/)
