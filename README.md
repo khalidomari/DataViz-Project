@@ -46,7 +46,7 @@ Or [download it as PDF](https://khalidomari.github.io/Data_Vizualization_Project
 
 ## Website Screen Cast
 
-[![ScreenCast](https://img.youtube.com/viR8-hJ8-Bgw4/0.jpg)](https://www.youtube.com/watch?v=R8-hJ8-Bgw4)
+[![https://www.youtube.com/watch?v=R8-hJ8-Bgw4](https://cdn2.iconfinder.com/data/icons/social-icons-color/512/youtube-128.png)](https://www.youtube.com/watch?v=R8-hJ8-Bgw4)
 
 ## Visualizations
 
